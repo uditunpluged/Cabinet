@@ -13,9 +13,9 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  database: simple_cms_developement
-  username: parry
-  password: parry
+  database: db_cabinet
+  username: cabinet
+  password: cabinet
   socket: /tmp/mysql.sock
 
 development:

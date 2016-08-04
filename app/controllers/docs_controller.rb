@@ -1,11 +1,12 @@
 class DocsController < ApplicationController
 
+  before_action :find_doc, only: [:show,:edit,:delete,:update,:destroy]
   def index
-
+    @docs=Doc.all.order ('created_at DESC')
   end
 
   def show
-
+    @doc=Doc.find(params[:id])
   end
 
   def new
@@ -15,7 +16,7 @@ class DocsController < ApplicationController
   def create
     @doc=Doc.create(doc_params)
     if @doc.save
-      redirect_to @doc
+      redirect_to 'index'
     else
       render 'new'
     end
@@ -36,7 +37,7 @@ class DocsController < ApplicationController
   private
 
   def find_doc
-
+    @doc=Doc.find(params[:id])
   end
 
   def doc_params

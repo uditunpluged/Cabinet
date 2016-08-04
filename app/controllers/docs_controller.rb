@@ -1,8 +1,12 @@
 class DocsController < ApplicationController
 
-  before_action :find_doc, only: [:show,:edit,:delete,:update,:destroy]
+  before_action :find_doc, only: [:show, :edit, :delete, :update, :destroy]
+
   def index
-    @docs=Doc.all.order ('created_at DESC')
+    # @docs=Doc.all.order ('created_at DESC')
+    @docs=Doc.where(:user_id => current_user).order ('created_at DESC')
+    # @docs=Doc.where(user_id: current_user).order ('created_at DESC')
+    puts current_user.sign_in_count
   end
 
   def show
@@ -17,6 +21,7 @@ class DocsController < ApplicationController
   def create
     # @doc=Doc.create(doc_params)
     @doc=current_user.docs.build(doc_params)
+
     if @doc.save
       redirect_to docs_path
     else
@@ -30,7 +35,7 @@ class DocsController < ApplicationController
 
   def update
     if @doc.update(doc_params)
-      redirect_to  doc_path
+      redirect_to doc_path
     else
       render 'edit'
     end
@@ -49,7 +54,7 @@ class DocsController < ApplicationController
   end
 
   def doc_params
-    params.require(:doc).permit(:title,:content)
+    params.require(:doc).permit(:title, :content)
   end
 
 end

@@ -1,3 +1,4 @@
+%h2= link_to "Create a new doc", new_doc_path
 - @docs.each do |doc|
   %h2= link_to doc.title, action: 'show',:id=>doc.id
   %p= time_ago_in_words doc.created_at

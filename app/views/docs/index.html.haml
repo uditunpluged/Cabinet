@@ -1,5 +1,13 @@
-%h2= link_to "Create a new doc", new_doc_path
-- @docs.each do |doc|
-  %h2= link_to doc.title, action: 'show',:id=>doc.id
-  %p= time_ago_in_words doc.created_at
-  %p= truncate doc.content,length:50
+.wrapper_with_padding
+  #docs.clearfix
+    - unless @docs.blank?
+      - @docs.each do |doc|
+        %a{ href:(url_for [doc])}
+          .doc
+            %p.title= link_to doc.title, action: 'show',:id=>doc.id
+            %p.date= time_ago_in_words doc.created_at
+            %p.content= truncate doc.content,length:50
+    - else
+      %h2 Create Docs!
+      %p Start Creating doc and organizing your life
+      %button= link_to 'Create Doc',new_doc_path
